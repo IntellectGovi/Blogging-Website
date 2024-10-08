@@ -5,7 +5,8 @@ const zod_1 = require("zod");
 exports.signupInput = zod_1.z.object({
     username: zod_1.z.string(),
     password: zod_1.z.string().min(6),
-    email: zod_1.z.string().optional()
+    email: zod_1.z.string().optional(),
+    name: zod_1.z.string().optional(),
 });
 exports.signinInput = zod_1.z.object({
     password: zod_1.z.string().min(6)

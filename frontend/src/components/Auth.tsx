@@ -8,35 +8,31 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const navigate = useNavigate();
   const [postInputs, setPostInputs] = useState<SignupInput>({
     username: "",
-    email:"",
+    email: "",
     password: "",
   });
 
   async function sendRequest() {
     try {
-      const response = (
-        await axios.post(
-          `${BACKEND_URL}/api/v1/user/${
-            type === "signup" ? "signup" : "signin"
-          }`,
-          postInputs
-        )
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
+        postInputs
       );
       console.log(response.data);
 
-      if(response.status != 200 && response.status != 201){
+      if (response.status != 200 && response.status != 201) {
         alert("User Not Found");
-        navigate('/signin')
+        navigate("/signin");
       }
 
-      const jwtToken = response.data.jwt 
-      
-      localStorage.setItem("token" , jwtToken);
+      const jwtToken = response.data.jwt;
+
+      localStorage.setItem("token", jwtToken);
       navigate("/blogs");
     } catch (e) {
       alert("Error while signing up");
       console.log(e);
-      navigate('/signin')
+      navigate("/signin");
     }
   }
 
